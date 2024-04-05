@@ -1,23 +1,16 @@
-// Importe o Prisma Client
-import { PrismaClient } from "@prisma/client";
-import { NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { NextResponse } from 'next/server'
+import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
-export const GET = async (req: Request) => {
-  try {
+export async function GET() {
     const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        email: true,
-        username: true,
-      },
-    });
+        select: {
+            id: true,
+            username: true,
+            email: true
+        }
+    })
 
-    return NextResponse.json({ users });
-  } catch (error) {
-    console.error("Erro ao buscar usuários:", error);
-    return NextResponse.error();
-  }
-};
+    return NextResponse.json(users)
+}
