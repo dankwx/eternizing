@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { db } from "@/lib/db";
+import Notes from "@/components/Users";
 
 async function getUsers() {
   const users = await db.user.findMany({
@@ -29,6 +30,7 @@ export default async function Home() {
       <User />
       <h2>Server Session</h2>
       {JSON.stringify(session)}
+      <Notes />
     </div>
   );
 }
