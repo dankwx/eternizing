@@ -13,6 +13,9 @@ export default async function Home() {
       <Link className={buttonVariants()} href="/admin">
         Open my Admin
       </Link>
+      <Link className={buttonVariants()} href="/newhome">
+        New Future Home
+      </Link>
 
       <h2>Client Session</h2>
       <User />
