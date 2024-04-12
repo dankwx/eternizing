@@ -16,6 +16,9 @@ export default async function Home() {
       <Link className={buttonVariants()} href="/newhome">
         New Future Home
       </Link>
+      <Link className={buttonVariants()} href="/registervideo">
+        Register Video
+      </Link>
 
       <h2>Client Session</h2>
       <User />
