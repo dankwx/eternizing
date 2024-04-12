@@ -3,19 +3,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { db } from "@/lib/db";
 import Notes from "@/components/Users";
-
-async function getUsers() {
-  const users = await db.user.findMany({
-    select: {
-      id: true,
-      email: true,
-      username: true
-    }
-  });
-  return users;
-}
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
