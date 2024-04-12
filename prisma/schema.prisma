@@ -9,11 +9,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model VideoClaim {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  videoUrl   String   @unique
+  videoTitle String
+  viewCount  Int
+  claimedAt  DateTime @default(now())
+}
+
+model ChannelClaim {
+  id              Int      @id @default(autoincrement())
+  user            User     @relation(fields: [userId], references: [id])
+  userId          Int
+  channelUrl      String   @unique
+  channelName     String
+  subscriberCount Int
+  claimedAt       DateTime @default(now())
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updateUt  DateTime @updatedAt
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  username      String         @unique
+  password      String
+  createdAt     DateTime       @default(now())
+  updateUt      DateTime       @updatedAt
+  videoClaims   VideoClaim[]
+  channelClaims ChannelClaim[]
 }
