@@ -5,7 +5,7 @@ const page = async () => {
   const session = await getServerSession(authOptions);
 
   if (session?.user) {
-    return <h2>Admin Page - welcome {session?.user.username}</h2>;
+    return <h2>Admin Page - welcome {session?.user.id}</h2>;
   }
   return (
     <div>
