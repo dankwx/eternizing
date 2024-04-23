@@ -1,20 +1,27 @@
 // VideoClaimForm.tsx
 
-"use client"
+"use client";
 
-import { useForm } from 'react-hook-form';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { useToast } from '@/components/ui/use-toast';
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
 // Definição do esquema para VideoClaim
 const VideoClaimSchema = z.object({
-  videoUrl: z.string().min(1, 'Video URL is required'),
-  videoTitle: z.string().min(1, 'Video title is required'),
+  videoUrl: z.string().min(1, "Video URL is required"),
+  videoTitle: z.string().min(1, "Video title is required"),
 });
 
 const VideoClaimForm = () => {
@@ -23,18 +30,18 @@ const VideoClaimForm = () => {
   const form = useForm<z.infer<typeof VideoClaimSchema>>({
     resolver: zodResolver(VideoClaimSchema),
     defaultValues: {
-      videoUrl: '',
-      videoTitle: '',
+      videoUrl: "",
+      videoTitle: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof VideoClaimSchema>) => {
     try {
       // Substitua '/api/video-claim' pelo endpoint adequado em sua aplicação
-      const response = await fetch('/api/video', {
-        method: 'POST',
+      const response = await fetch("/api/video", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           videoUrl: values.videoUrl,
@@ -43,19 +50,19 @@ const VideoClaimForm = () => {
       });
 
       if (response.ok) {
-        router.push('/dashboard'); // Redirecionar para a página apropriada após a criação bem-sucedida
+        router.push("/dashboard"); // Redirecionar para a página apropriada após a criação bem-sucedida
         toast({
-          title: 'Success',
-          description: 'Video claim created successfully!',
+          title: "Success",
+          description: "Video claim created successfully!",
         });
       } else {
-        throw new Error('Failed to create video claim');
+        throw new Error("Failed to create video claim");
       }
     } catch (error) {
-      console.error('Error creating video claim:', error);
+      console.error("Error creating video claim:", error);
       toast({
-        title: 'Error',
-        description: 'Failed to create video claim. Please try again later.',
+        title: "Error",
+        description: "Failed to create video claim. Please try again later.",
       });
     }
   };
@@ -71,7 +78,10 @@ const VideoClaimForm = () => {
               <FormItem>
                 <FormLabel>Video URL</FormLabel>
                 <FormControl>
-                  <Input placeholder="https://www.youtube.com/watch?v=example" {...field} />
+                  <Input
+                    placeholder="https://www.youtube.com/watch?v=example"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -3,6 +3,8 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 import * as z from "zod";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
 // Define a schema for input validation
 const videoSchema = z.object({
@@ -14,8 +16,18 @@ const videoSchema = z.object({
 export async function POST(req: Request) {
   // Renamed to `createVideo`
   try {
+    const session = await getServerSession(authOptions);
+    const userId = session?.user.id ? parseInt(session.user.id, 10) : undefined;
+
+    if (userId === undefined) {
+      throw new Error("User ID is undefined in the session.");
+    }
+
     const body = await req.json();
-    const { userId, videoUrl, videoTitle } = videoSchema.parse(body);
+    const { videoUrl, videoTitle } = videoSchema.parse({
+      ...body,
+      userId, // Incluindo o userId fixo no objeto a ser validado
+    });
 
     // Check if the video already exists by videoUrl
     const existingVideo = await db.videoClaim.findUnique({
