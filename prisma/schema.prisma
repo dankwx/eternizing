@@ -13,7 +13,7 @@ model VideoClaim {
   id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [userId], references: [id])
   userId     Int
-  videoUrl   String   @unique
+  videoUrl   String
   videoTitle String
   viewCount  Int
   claimedAt  DateTime @default(now())

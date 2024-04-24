@@ -30,13 +30,16 @@ export async function POST(req: Request) {
     });
 
     // Check if the video already exists by videoUrl
-    const existingVideo = await db.videoClaim.findUnique({
-      where: { videoUrl },
+    const existingVideo = await db.videoClaim.findFirst({
+      where: {
+        userId,
+        videoUrl,
+      },
     });
 
     if (existingVideo) {
       return NextResponse.json(
-        { video: null, message: "Video already exists" },
+        { video: null, message: "You have already claimed this video URL" },
         { status: 409 }
       );
     }
