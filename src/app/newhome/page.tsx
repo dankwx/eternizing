@@ -1,7 +1,9 @@
+import ClaimedExamples from "@/components/ClaimedExamples";
+
 export default function NewHome() {
   return (
     <div className="flex w-full pt-2">
-      <div className="flex-col w-1/3">
+      <div className="flex-col w-1/3 border-solid border-r-2 border-sky-500">
         <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl px-6 pb-4">
           Eternizing
         </h2>
@@ -21,7 +23,10 @@ export default function NewHome() {
           2. Eternize.
         </p>
       </div>
-      <div className="flex-col flex-grow bg-yellow-300"></div>
+      <hr />
+      <div className="flex flex-col items-center justify-center flex-grow">
+        <ClaimedExamples />
+      </div>
     </div>
   );
 }
