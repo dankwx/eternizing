@@ -2,11 +2,17 @@
 
 import { signOut } from "next-auth/react";
 import { Button } from "./ui/button";
+import UserName from "./UserName";
 
 const UserAccountNav = () => {
   return (
     <div>
-      <h1>user account logged</h1>
+      <div className="flex">
+      <h1>User :</h1>
+      <UserName />
+      </div>
+      
+      
       <Button
         onClick={() =>
           signOut({
